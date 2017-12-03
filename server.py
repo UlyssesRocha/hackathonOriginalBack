@@ -27,7 +27,7 @@ class JSONRequestHandler(BaseHTTPRequestHandler):
             path = '/balance'
             data = original_api.make_get_request(path, queries)
             dic = json.loads(data)
-            dic['savings'] = 42
+            dic['savings'] = 220
             data = json.dumps(dic)
         elif self.path.startswith('/balance-history'):
             path = '/balance-history'
