@@ -3,8 +3,9 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import original_api
 import datetime
 import socket
+import os
 
-PORT = 9000
+PORT = int(os.environ.get("PORT", 5000))
 
 class JSONRequestHandler (BaseHTTPRequestHandler):
 
@@ -34,7 +35,7 @@ class JSONRequestHandler (BaseHTTPRequestHandler):
         self.wfile.write(data.encode())
 
 if __name__ == '__main__':
-    HOST_NAME = 'hackatonoriginalback.herokuapp.com'
+    HOST_NAME = '0.0.0.0'
     print(HOST_NAME)
     server = HTTPServer((HOST_NAME, PORT), JSONRequestHandler)
     print(datetime.datetime.now(), 'Server Starts - %s:%s' % (HOST_NAME, PORT))
