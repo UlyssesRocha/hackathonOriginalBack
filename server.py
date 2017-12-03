@@ -7,7 +7,8 @@ import os
 import gen
 import retrieve
 import json
-import tip_system
+from tip_system import gen_tips
+from tip_system import retrieve as retrieve_tips
 
 PORT = int(os.environ.get("PORT", 5000))
 
@@ -45,8 +46,8 @@ class JSONRequestHandler(BaseHTTPRequestHandler):
             data = original_api.make_get_request(path, queries)
         elif self.path.startswith('/tips-budget-cut'):
             path = '/tips-budget-cut'
-            pcts, _ = tip_system.gen_tips.get_pcts()
-            label = tip_system.retrieve.get_tip(pcts)
+            pcts, _ = gen_tips.get_pcts()
+            label = retrieve_tips.get_tip(pcts)
             data = json.dumps({'label':label})
         elif self.path.startswith('/predict-credit-score'):
             path = '/predict-credit-score'
