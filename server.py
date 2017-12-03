@@ -4,6 +4,9 @@ import original_api
 import datetime
 import socket
 import os
+import gen
+import retrieve
+import json
 
 PORT = int(os.environ.get("PORT", 5000))
 
@@ -33,8 +36,16 @@ class JSONRequestHandler(BaseHTTPRequestHandler):
             date_before = (datetime.datetime.now().date() -
                            datetime.timedelta(days=30)).strftime('%Y%m%d')
             queries = '?date_from=' + date_before + '&date_to=' + curr_date
+        if self.path.startswith('/predict-credit-score'):
+            path = '/predict-credit-score'
+            # mock with random data
+            new_data = gen.random_client_data()
+            credit_score = retrieve.get_credit_prection(new_data)
+            data = json.dumps({'score': credit_score})
+            print(data)
+        else:
+            data = original_api.make_get_request(path, queries)
 
-        data = original_api.make_get_request(path, queries)
         self.wfile.write(data.encode())
 
 
