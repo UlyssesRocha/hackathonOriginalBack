@@ -7,6 +7,7 @@ import os
 import gen
 import retrieve
 import json
+import tip_system
 
 PORT = int(os.environ.get("PORT", 5000))
 
@@ -32,16 +33,21 @@ class JSONRequestHandler(BaseHTTPRequestHandler):
         elif self.path.startswith('/balance-history'):
             path = '/balance-history'
             date_before = (datetime.datetime.now().date() -
-                           datetime.timedelta(days=30)).strftime('%Y%m%d')
+                    datetime.timedelta(days=30)).strftime('%Y%m%d')
             queries = '?date_from=' + date_before
             data = original_api.make_get_request(path, queries)
         elif self.path.startswith('/transaction-history'):
             path = '/transaction-history'
             curr_date = datetime.datetime.now().date().strftime('%Y%m%d')
             date_before = (datetime.datetime.now().date() -
-                           datetime.timedelta(days=30)).strftime('%Y%m%d')
+                    datetime.timedelta(days=30)).strftime('%Y%m%d')
             queries = '?date_from=' + date_before + '&date_to=' + curr_date
             data = original_api.make_get_request(path, queries)
+        elif self.path.startswith('/tips-budget-cut'):
+            path = '/tips-budget-cut'
+            pcts, _ = tip_system.gen_tips.get_pcts()
+            label = tip_system.retrieve.get_tip(pcts)
+            data = json.dumps({'label':label})
         elif self.path.startswith('/predict-credit-score'):
             path = '/predict-credit-score'
             # mock with random data
