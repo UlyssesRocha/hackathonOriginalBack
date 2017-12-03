@@ -12,7 +12,7 @@ class JSONRequestHandler (BaseHTTPRequestHandler):
     def do_GET(self):
 
         #send response code:
-        self.send_response(200)
+        self.send_response(200, message = "OK")
         #send headers:
         self.send_header("Content-type", "application/json")
         # send a blank line to end headers:
