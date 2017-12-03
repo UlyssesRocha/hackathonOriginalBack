@@ -35,6 +35,7 @@ class JSONRequestHandler (BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
     HOST_NAME = socket.gethostbyname('hackatonoriginalback.herokuapp.com')
+    print(HOST_NAME)
     server = HTTPServer((HOST_NAME, PORT), JSONRequestHandler)
     print(datetime.datetime.now(), 'Server Starts - %s:%s' % (HOST_NAME, PORT))
     server.serve_forever()
