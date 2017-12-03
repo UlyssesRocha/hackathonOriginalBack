@@ -12,7 +12,6 @@ from tip_system import retrieve as retrieve_tips
 
 PORT = int(os.environ.get("PORT", 5000))
 
-
 class JSONRequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
