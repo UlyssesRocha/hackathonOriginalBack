@@ -25,28 +25,29 @@ class JSONRequestHandler(BaseHTTPRequestHandler):
 
         if self.path.startswith('/balance'):
             path = '/balance'
-        if self.path.startswith('/balance-history'):
+            data = original_api.make_get_request(path, queries)
+            dic = json.loads(data)
+            dic['savings'] = 42
+            data = json.dumps(dic)
+        elif self.path.startswith('/balance-history'):
             path = '/balance-history'
             date_before = (datetime.datetime.now().date() -
                            datetime.timedelta(days=30)).strftime('%Y%m%d')
             queries = '?date_from=' + date_before
-        if self.path.startswith('/transaction-history'):
+            data = original_api.make_get_request(path, queries)
+        elif self.path.startswith('/transaction-history'):
             path = '/transaction-history'
             curr_date = datetime.datetime.now().date().strftime('%Y%m%d')
             date_before = (datetime.datetime.now().date() -
                            datetime.timedelta(days=30)).strftime('%Y%m%d')
             queries = '?date_from=' + date_before + '&date_to=' + curr_date
-        if self.path.startswith('/savings'):
-            path = '/savings'
-            data = json.dumps({'savings': 42})
+            data = original_api.make_get_request(path, queries)
         elif self.path.startswith('/predict-credit-score'):
             path = '/predict-credit-score'
             # mock with random data
             new_data = gen.random_client_data()
             credit_score = retrieve.get_credit_prection(new_data)
             data = json.dumps({'score': credit_score})
-        else:
-            data = original_api.make_get_request(path, queries)
 
         self.wfile.write(data.encode())
 
