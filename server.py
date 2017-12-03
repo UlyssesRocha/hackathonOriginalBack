@@ -33,7 +33,7 @@ class JSONRequestHandler (BaseHTTPRequestHandler):
         self.wfile.write(data.encode())
 
 if __name__ == '__main__':
-    HOST_NAME = 'https://hackatonoriginalback.herokuapp.com'
+    HOST_NAME = 'hackatonoriginalback.herokuapp.com'
     server = HTTPServer((HOST_NAME, PORT), JSONRequestHandler)
     print(datetime.datetime.now(), 'Server Starts - %s:%s' % (HOST_NAME, PORT))
     server.serve_forever()
