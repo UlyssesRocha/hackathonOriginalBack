@@ -1,7 +1,9 @@
-import urllib3, requests, json
+import urllib3, requests, json, os
 
 def get_tip(pcts):
-    wml_service_credentials_url, wml_service_credentials_username, wml_service_credentials_password = [line.rstrip('\n') for line in open('../credentials.txt')]
+    parentdir_path = os.path.abspath(os.path.join(os.path.curdir, os.pardir))
+    credential_file = os.path.join(parentdir_path, 'credentials.txt')
+    wml_service_credentials_url, wml_service_credentials_username, wml_service_credentials_password = [line.rstrip('\n') for line in open(credential_file)]
 
     # retrieve your wml_service_credentials_username, wml_service_credentials_password, and wml_service_credentials_url from the
     # Service credentials associated with your IBM Cloud Watson Machine Learning Service instanceIBM Cloud Watson Machine Learning Service instance 
