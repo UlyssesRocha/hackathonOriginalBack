@@ -53,7 +53,6 @@ class JSONRequestHandler(BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
     HOST_NAME = '0.0.0.0'
-    print(HOST_NAME)
     server = HTTPServer((HOST_NAME, PORT), JSONRequestHandler)
     print(datetime.datetime.now(), 'Server Starts - %s:%s' % (HOST_NAME, PORT))
     server.serve_forever()
