@@ -1,48 +1,30 @@
-#!/usr/bin/env python3
+#  sandbox_url = 'https://sandbox.original.com.br/accounts/v1/transaction-history?dateFrom=20120101&dateTo=20160101'
+#
+import requests, json
+
+#
+#  r = requests.get(sandbox_url, headers=headers)
+#
+#  print(r.text)
 """
-Very simple HTTP server in python for logging requests
-Usage::
-    ./server.py [<port>]
+enny Doe 222.222.222-22 123456 222222
 """
-from http.server import BaseHTTPRequestHandler, HTTPServer
-import logging
+access_token2 = "Bearer YjYwNzkzMzAtZDdiZC0xMWU3LWJjNTEtMDA1MDU2OWE3MzA1OmV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUowZVhCbElqb2lUMEYxZEdnaUxDSnBZWFFpT2pFMU1USXlOVGsyTURjc0ltVjRjQ0k2TVRVeE1qWTVNVFl3Tnl3aVlYVmtJam9pTldJMFpqZG1PR1lpTENKcGMzTWlPaUphZFhBdWJXVWdSMkYwWlhkaGVTSXNJbk4xWWlJNkltSTJNRGM1TXpNd0xXUTNZbVF0TVRGbE55MWlZelV4TFRBd05UQTFOamxoTnpNd05TSXNJbXAwYVNJNkltUmhZV1JsTmpNd0xXUTNZbVF0TVRGbE55MWhOMk13TFdNeE56WXlaRFl3TlRRME5pSjkuZlBZTVQ4ZEdYMWFxVzF2UWxrTUtLbl94a3VPSk9ERF9rR2lyUXBjd2gydw=="
+"""
+Rose Doe 444.444.444-44 123456 444444
+"""
+access_token4 = "Bearer NDMyNDkzYTAtZDdjMS0xMWU3LWJjNTEtMDA1MDU2OWE3MzA1OmV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUowZVhCbElqb2lUMEYxZEdnaUxDSnBZWFFpT2pFMU1USXlOakV4TlRJc0ltVjRjQ0k2TVRVeE1qWTVNekUxTWl3aVlYVmtJam9pTldJMFpqZG1PR1lpTENKcGMzTWlPaUphZFhBdWJXVWdSMkYwWlhkaGVTSXNJbk4xWWlJNklqUXpNalE1TTJFd0xXUTNZekV0TVRGbE55MWlZelV4TFRBd05UQTFOamxoTnpNd05TSXNJbXAwYVNJNklqY3pPV0poTmprd0xXUTNZekV0TVRGbE55MWhOMk13TFdNeE56WXlaRFl3TlRRME5pSjkua0tkQVVOcHltdGZ6eHdwb1RFRnZ1LWs0V2RDWF92aG5ia1F1aU1rRU81aw=="
+access_token = access_token4
+headers = {
+    'Authorization': access_token,
+    'developer-key': '28f955c90b3a2940134ff1a970050f569a87facf'
+}
+url_prefix = 'https://sandbox.original.com.br/accounts/v1'
 
-class S(BaseHTTPRequestHandler):
-    def _set_response(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
 
-    def do_GET(self):
-        logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
-        self._set_response()
-        self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
-
-    def do_POST(self):
-        content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
-        post_data = self.rfile.read(content_length) # <--- Gets the data itself
-        logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
-                str(self.path), str(self.headers), post_data.decode('utf-8'))
-
-        self._set_response()
-        self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
-
-def run(server_class=HTTPServer, handler_class=S, port=8080):
-    logging.basicConfig(level=logging.INFO)
-    server_address = ('', port)
-    httpd = server_class(server_address, handler_class)
-    logging.info('Starting httpd...\n')
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        pass
-    httpd.server_close()
-    logging.info('Stopping httpd...\n')
-
-if __name__ == '__main__':
-    from sys import argv
-
-    if len(argv) == 2:
-        run(port=int(argv[1]))
-    else:
-        run()
+def make_get_request(path, queries):
+    r = requests.get(url_prefix + path + queries, headers=headers)
+    data = ""
+    #  if r.status_code == requests.codes.ok:
+    data = r.text
+    return data
