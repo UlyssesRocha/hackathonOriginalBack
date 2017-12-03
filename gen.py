@@ -56,3 +56,16 @@ def random_client_data():
     line = np.append(line,[np.random.randint(50,0.5 * max_saved_value)])
 
     return line.tolist()
+    
+    # sample client info
+    #
+    # (0 1 0 0) (1 1 0) (1 0 0 1) (0 1 0) (X1) (X2)
+    #     A        B        C        D     E    F
+    #   
+    #   A = 2-3 years as client
+    #   B = uses beginner and medium investments
+    #   C = had positive balances 1 and 4 months ago
+    #   D = invests 10-20 % of total amount each month
+    #   E = total invested value
+    #   F = average credit
+    #   
