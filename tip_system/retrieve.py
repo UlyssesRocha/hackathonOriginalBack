@@ -1,7 +1,6 @@
 import urllib3, requests, json
 
 def get_tip(pcts):
-    #
     wml_service_credentials_url, wml_service_credentials_username, wml_service_credentials_password = [line.rstrip('\n') for line in open('credentials.txt')]
 
     # retrieve your wml_service_credentials_username, wml_service_credentials_password, and wml_service_credentials_url from the
